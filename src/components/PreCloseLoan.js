@@ -136,7 +136,7 @@ const PreCloseLoan = ({ loan, onClose, onSuccess }) => {
                 window.currentPreClosePopup = null;
             }
 
-            const response = await fetch(`http://localhost:5000/api/loans/${loan._id}/pre-close`, {
+            const response = await fetch(`https://finance-backend-kappa.vercel.app/api/loans/${loan._id}/pre-close`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

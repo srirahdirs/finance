@@ -19,7 +19,7 @@ const ClientManagement = () => {
   const fetchClients = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/clients');
+      const response = await fetch('https://finance-backend-kappa.vercel.app/api/clients');
       const data = await response.json();
       setClients(data);
     } catch (error) {
@@ -36,7 +36,7 @@ const ClientManagement = () => {
 
       if (editingClient) {
         // Update existing client
-        const response = await fetch(`http://localhost:5000/api/clients/${editingClient._id}`, {
+        const response = await fetch(`https://finance-backend-kappa.vercel.app/api/clients/${editingClient._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const ClientManagement = () => {
         }
       } else {
         // Create new client
-        const response = await fetch('http://localhost:5000/api/clients', {
+        const response = await fetch('https://finance-backend-kappa.vercel.app/api/clients', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

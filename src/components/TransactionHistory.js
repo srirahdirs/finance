@@ -30,7 +30,7 @@ const TransactionHistory = () => {
     const fetchTransactions = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:5000/api/transactions');
+            const response = await fetch('https://finance-backend-kappa.vercel.app/api/transactions');
             const data = await response.json();
             setTransactions(data);
         } catch (error) {
@@ -43,7 +43,7 @@ const TransactionHistory = () => {
 
     const fetchIncomeSummary = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/transactions');
+            const response = await fetch('https://finance-backend-kappa.vercel.app/api/transactions');
             const transactions = await response.json();
 
             // Calculate income summary from actual transactions

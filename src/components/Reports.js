@@ -34,9 +34,9 @@ const Reports = () => {
         try {
             setLoading(true);
             const [clientsResponse, loansResponse, transactionsResponse] = await Promise.all([
-                fetch('http://localhost:5000/api/clients'),
-                fetch('http://localhost:5000/api/loans'),
-                fetch('http://localhost:5000/api/transactions')
+                fetch('https://finance-backend-kappa.vercel.app/api/clients'),
+                fetch('https://finance-backend-kappa.vercel.app/api/loans'),
+                fetch('https://finance-backend-kappa.vercel.app/api/transactions')
             ]);
 
             const [clients, loans, transactions] = await Promise.all([

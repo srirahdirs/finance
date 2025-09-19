@@ -30,9 +30,9 @@ const Dashboard = ({ onNavigate }) => {
 
             // Fetch all data in parallel for better performance
             const [clientsResponse, loansResponse, transactionsResponse] = await Promise.all([
-                fetch('http://localhost:5000/api/clients'),
-                fetch('http://localhost:5000/api/loans'),
-                fetch('http://localhost:5000/api/transactions')
+                fetch('https://finance-backend-kappa.vercel.app/api/clients'),
+                fetch('https://finance-backend-kappa.vercel.app/api/loans'),
+                fetch('https://finance-backend-kappa.vercel.app/api/transactions')
             ]);
 
             const [clients, loans, transactions] = await Promise.all([

@@ -75,7 +75,7 @@ const InterestCollection = ({ loan, onClose, onSuccess }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/loans/${loan._id}/collect-interest`, {
+            const response = await fetch(`https://finance-backend-kappa.vercel.app/api/loans/${loan._id}/collect-interest`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

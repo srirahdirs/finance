@@ -27,7 +27,7 @@ const LoanManagement = () => {
     const fetchLoans = async () => {
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:5000/api/loans');
+            const response = await fetch('https://finance-backend-kappa.vercel.app/api/loans');
             const data = await response.json();
             setLoans(data);
         } catch (error) {
@@ -39,7 +39,7 @@ const LoanManagement = () => {
 
     const fetchClients = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/clients');
+            const response = await fetch('https://finance-backend-kappa.vercel.app/api/clients');
             const data = await response.json();
             setClients(data);
         } catch (error) {
@@ -51,7 +51,7 @@ const LoanManagement = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const response = await fetch('http://localhost:5000/api/loans', {
+            const response = await fetch('https://finance-backend-kappa.vercel.app/api/loans', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
