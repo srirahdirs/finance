@@ -106,7 +106,7 @@ function App() {
       <nav className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile menu button */}
-          <div className="flex justify-between items-center lg:hidden py-3">
+          <div className="flex justify-between items-center lg:hidden py-2">
             <div className="flex space-x-1">
               {navItems.slice(0, 3).map((item) => (
                 <button
@@ -121,7 +121,7 @@ function App() {
             </div>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="btn btn-outline text-xs px-3 py-2"
+              className="btn btn-outline text-xs px-2 py-1"
             >
               <span className="mr-1">📱</span>
               More
@@ -130,15 +130,15 @@ function App() {
 
           {/* Mobile dropdown menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden border-t border-gray-200 py-3">
-              <div className="flex flex-wrap gap-2">
+            <div className="lg:hidden border-t border-gray-200 py-2">
+              <div className="flex flex-wrap gap-1">
                 {navItems.slice(3).map((item) => (
                   <button
                     key={item.id}
                     onClick={() => handleTabChange(item.id)}
-                    className={`nav-link text-sm px-3 py-2 ${activeTab === item.id ? 'active' : ''}`}
+                    className={`nav-link text-xs px-2 py-1 ${activeTab === item.id ? 'active' : ''}`}
                   >
-                    <span className="mr-2">{item.icon}</span>
+                    <span className="mr-1">{item.icon}</span>
                     {item.label}
                   </button>
                 ))}
@@ -163,7 +163,7 @@ function App() {
       </nav>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 w-full">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 lg:py-8 w-full">
         {renderContent()}
       </main>
 

@@ -92,9 +92,9 @@ const TransactionHistory = () => {
 
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-responsive">
             {/* Page Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
                 <div>
                     {/* <h1 className="text-3xl font-bold text-gray-900">Transaction History</h1>
                     <p className="text-gray-600 mt-1">Complete financial transaction records</p> */}
@@ -104,14 +104,14 @@ const TransactionHistory = () => {
                         fetchTransactions();
                         fetchIncomeSummary();
                     }}
-                    className="btn btn-outline"
+                    className="btn btn-outline text-responsive-sm w-full sm:w-auto"
                 >
                     🔄 Refresh Data
                 </button>
             </div>
 
             {/* Income Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <div className="stat-card">
                     <div className="flex items-center justify-between">
                         <div>
@@ -161,8 +161,8 @@ const TransactionHistory = () => {
             {/* Transactions Table */}
             <div className="card">
                 <div className="card-header">
-                    <h2 className="text-lg font-semibold text-gray-900">All Transactions</h2>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <h2 className="text-responsive-lg font-semibold text-gray-900">All Transactions</h2>
+                    <p className="text-responsive-sm text-gray-500 mt-1">
                         {transactions.length} transactions recorded
                     </p>
                 </div>
@@ -172,7 +172,7 @@ const TransactionHistory = () => {
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                         </div>
                     ) : transactions.length > 0 ? (
-                        <div className="overflow-hidden">
+                        <div className="table-responsive">
                             <table className="table">
                                 <thead className="table-header">
                                     <tr>

@@ -98,15 +98,15 @@ const ClientManagement = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-responsive">
       {/* Page Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
         <div>
           {/* <h1 className="text-3xl font-bold text-gray-900">Client Management</h1> */}
           {/* <p className="text-gray-600 mt-1">Client Management</p> */}
         </div>
         <button
-          className="btn btn-primary"
+          className="btn btn-primary text-responsive-sm w-full sm:w-auto"
           onClick={() => setShowForm(!showForm)}
         >
           {showForm ? '❌ Cancel' : '➕ Add New Client'}
@@ -117,16 +117,16 @@ const ClientManagement = () => {
       {showForm && (
         <div className="card">
           <div className="card-header">
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-responsive-lg font-semibold text-gray-900">
               {editingClient ? 'Edit Client' : 'Add New Client'}
             </h2>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-responsive-sm text-gray-500 mt-1">
               {editingClient ? 'Update client information below' : 'Enter client information below'}
             </p>
           </div>
           <div className="card-body">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-responsive">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className="form-label">Client Name *</label>
                   <input
@@ -154,7 +154,7 @@ const ClientManagement = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className="form-label">Phone Number *</label>
                   <input
@@ -182,17 +182,17 @@ const ClientManagement = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-3">
+              <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3">
                 <button
                   type="button"
-                  className="btn btn-outline"
+                  className="btn btn-outline text-responsive-sm w-full sm:w-auto"
                   onClick={handleCancel}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-primary text-responsive-sm w-full sm:w-auto"
                   disabled={loading}
                 >
                   {loading ? '⏳ Saving...' : editingClient ? '💾 Update Client' : '💾 Save Client'}
@@ -206,8 +206,8 @@ const ClientManagement = () => {
       {/* Clients List */}
       <div className="card">
         <div className="card-header">
-          <h2 className="text-lg font-semibold text-gray-900">Client List</h2>
-          <p className="text-sm text-gray-500 mt-1">
+          <h2 className="text-responsive-lg font-semibold text-gray-900">Client List</h2>
+          <p className="text-responsive-sm text-gray-500 mt-1">
             {clients.length} {clients.length === 1 ? 'client' : 'clients'} registered
           </p>
         </div>
@@ -217,52 +217,111 @@ const ClientManagement = () => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
             </div>
           ) : clients.length > 0 ? (
-            <div className="overflow-hidden">
-              <table className="table">
-                <thead className="table-header">
-                  <tr>
-                    <th className="table-header-cell">Client</th>
-                    <th className="table-header-cell">Contact</th>
-                    <th className="table-header-cell">Address</th>
-                    <th className="table-header-cell">Status</th>
-                    <th className="table-header-cell">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="table-body">
-                  {clients.map((client) => (
-                    <tr key={client._id} className="table-row">
-                      <td className="table-cell">
-                        <div className="flex items-center">
-                          <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center mr-4">
-                            <span className="text-primary-600 text-sm font-semibold">
-                              {client.name.charAt(0).toUpperCase()}
+            <>
+              {/* Desktop Table */}
+              <div className="table-responsive hidden sm:block">
+                <table className="table">
+                  <thead className="table-header">
+                    <tr>
+                      <th className="table-header-cell">Client</th>
+                      <th className="table-header-cell">Contact</th>
+                      <th className="table-header-cell">Address</th>
+                      <th className="table-header-cell">Status</th>
+                      <th className="table-header-cell">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="table-body">
+                    {clients.map((client) => (
+                      <tr key={client._id} className="table-row">
+                        <td className="table-cell">
+                          <div className="flex items-center">
+                            <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                              <span className="text-primary-600 text-sm font-semibold">
+                                {client.name.charAt(0).toUpperCase()}
+                              </span>
+                            </div>
+                            <div>
+                              <div className="text-sm font-semibold text-gray-900">
+                                {client.name}
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                ID: {client._id.slice(-8)}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="table-cell">
+                          <div className="text-sm text-gray-900">{client.email}</div>
+                          <div className="text-xs text-gray-500">{client.phone}</div>
+                        </td>
+                        <td className="table-cell">
+                          <div className="text-sm text-gray-900 max-w-xs truncate">
+                            {client.address}
+                          </div>
+                        </td>
+                        <td className="table-cell">
+                          <span className={`badge ${client.status === 'active' ? 'badge-success' : 'badge-warning'}`}>
+                            {client.status}
+                          </span>
+                        </td>
+                        <td className="table-cell">
+                          <div className="flex space-x-2">
+                            <button
+                              className="btn btn-warning text-xs px-3 py-1"
+                              onClick={() => handleEdit(client)}
+                            >
+                              ✏️ Edit
+                            </button>
+                            <span className="text-xs text-gray-400 px-3 py-1">
+                              🔒 Protected
                             </span>
                           </div>
-                          <div>
-                            <div className="text-sm font-semibold text-gray-900">
-                              {client.name}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              ID: {client._id.slice(-8)}
-                            </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Cards */}
+              <div className="block sm:hidden space-y-4">
+                {clients.map((client) => (
+                  <div key={client._id} className="table-mobile-card">
+                    <div className="table-mobile-card-header">
+                      <div className="flex items-center">
+                        <div className="h-10 w-10 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+                          <span className="text-primary-600 text-sm font-semibold">
+                            {client.name.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-gray-900">
+                            {client.name}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            ID: {client._id.slice(-8)}
                           </div>
                         </div>
-                      </td>
-                      <td className="table-cell">
-                        <div className="text-sm text-gray-900">{client.email}</div>
-                        <div className="text-xs text-gray-500">{client.phone}</div>
-                      </td>
-                      <td className="table-cell">
-                        <div className="text-sm text-gray-900 max-w-xs truncate">
-                          {client.address}
-                        </div>
-                      </td>
-                      <td className="table-cell">
-                        <span className={`badge ${client.status === 'active' ? 'badge-success' : 'badge-warning'}`}>
-                          {client.status}
-                        </span>
-                      </td>
-                      <td className="table-cell">
+                      </div>
+                      <span className={`badge ${client.status === 'active' ? 'badge-success' : 'badge-warning'}`}>
+                        {client.status}
+                      </span>
+                    </div>
+                    <div className="table-mobile-card-body">
+                      <div className="table-mobile-card-row">
+                        <span className="table-mobile-card-label">Email</span>
+                        <span className="table-mobile-card-value">{client.email}</span>
+                      </div>
+                      <div className="table-mobile-card-row">
+                        <span className="table-mobile-card-label">Phone</span>
+                        <span className="table-mobile-card-value">{client.phone}</span>
+                      </div>
+                      <div className="table-mobile-card-row">
+                        <span className="table-mobile-card-label">Address</span>
+                        <span className="table-mobile-card-value">{client.address}</span>
+                      </div>
+                      <div className="table-mobile-card-row">
+                        <span className="table-mobile-card-label">Actions</span>
                         <div className="flex space-x-2">
                           <button
                             className="btn btn-warning text-xs px-3 py-1"
@@ -274,12 +333,12 @@ const ClientManagement = () => {
                             🔒 Protected
                           </span>
                         </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
           ) : (
             <div className="text-center py-12">
               <div className="text-gray-400 text-6xl mb-4">👥</div>
