@@ -68,24 +68,26 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col w-full max-w-none">
       {/* Header */}
-      <header className="bg-white shadow-medium border-b border-gray-200">
+      <header className="bg-white shadow-medium border-b border-gray-200 w-full">
         <div className="w-full px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4 sm:py-6">
-            <div className="flex items-center">
+          <div className="flex justify-center items-center py-4 sm:py-6 w-full relative">
+            {/* Logo and Title - Centered */}
+            <div className="flex items-center justify-center flex-1">
               <div className="flex-shrink-0">
                 <div className="h-8 w-8 sm:h-10 sm:w-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                   <span className="text-white text-lg sm:text-xl font-bold">🏦</span>
                 </div>
               </div>
               <div className="ml-3 sm:ml-4">
-                <h1 className="text-lg sm:text-2xl font-bold text-gray-900">Loan Management System</h1>
-                <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">Financial Management Platform</p>
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900 text-center">Loan Management System</h1>
+                <p className="text-xs sm:text-sm text-gray-500 text-center">Financial Management Platform</p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Logout Button - Absolute positioned */}
+            <div className="absolute right-0 flex items-center space-x-2 sm:space-x-4">
               <div className="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
                 <div className="h-2 w-2 bg-green-400 rounded-full"></div>
                 <span>System Online</span>
@@ -103,8 +105,8 @@ function App() {
       </header>
 
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="bg-white border-b border-gray-200 w-full">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           {/* Mobile menu button */}
           <div className="flex justify-between items-center lg:hidden py-2">
             <div className="flex space-x-1">
@@ -163,13 +165,13 @@ function App() {
       </nav>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4 lg:py-8 w-full">
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-2 sm:py-4 lg:py-8 w-full">
         {renderContent()}
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <footer className="bg-white border-t border-gray-200 mt-auto w-full">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
             <div className="text-xs sm:text-sm text-gray-500 text-center sm:text-left">
               © 2025 Loan Management System. All rights reserved.
