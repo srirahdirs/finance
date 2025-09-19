@@ -199,19 +199,21 @@ const PreCloseLoan = ({ loan, onClose, onSuccess }) => {
     if (!loan) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
+            <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
                 <div className="card-header">
-                    <div className="flex justify-between items-center">
-                        <div>
-                            <h2 className="text-xl font-bold text-gray-900">Pre-Close Loan</h2>
-                            <p className="text-sm text-gray-500 mt-1">
-                                Client: {loan.client?.name} | Loan Amount: ₹{loan.loanAmount.toLocaleString()}
+                    <div className="flex justify-between items-start sm:items-center">
+                        <div className="flex-1 min-w-0">
+                            <h2 className="text-lg sm:text-xl font-bold text-gray-900">Pre-Close Loan</h2>
+                            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                                <span className="block sm:inline">Client: {loan.client?.name}</span>
+                                <span className="hidden sm:inline"> | </span>
+                                <span className="block sm:inline">Loan Amount: ₹{loan.loanAmount.toLocaleString()}</span>
                             </p>
                         </div>
                         <button
                             onClick={onClose}
-                            className="text-gray-400 hover:text-gray-600 text-2xl"
+                            className="text-gray-400 hover:text-gray-600 text-xl sm:text-2xl ml-2 flex-shrink-0"
                         >
                             ×
                         </button>
@@ -221,9 +223,9 @@ const PreCloseLoan = ({ loan, onClose, onSuccess }) => {
                 <div className="card-body">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Loan Summary */}
-                        <div className="bg-gray-50 p-4 rounded-lg">
-                            <h3 className="font-semibold text-gray-900 mb-3">Loan Summary</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+                            <h3 className="font-semibold text-gray-900 mb-3 text-responsive-sm">Loan Summary</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
                                 <div>
                                     <span className="text-gray-500">Principal Amount:</span>
                                     <div className="font-semibold">₹{loan.loanAmount.toLocaleString()}</div>
@@ -244,7 +246,7 @@ const PreCloseLoan = ({ loan, onClose, onSuccess }) => {
                         </div>
 
                         {/* Settlement Details */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             <div>
                                 <label className="form-label">Penalty Amount (₹)</label>
                                 <input
@@ -337,17 +339,17 @@ const PreCloseLoan = ({ loan, onClose, onSuccess }) => {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+                        <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 pt-4 border-t border-gray-200">
                             <button
                                 type="button"
-                                className="btn btn-outline"
+                                className="btn btn-outline text-responsive-sm w-full sm:w-auto"
                                 onClick={onClose}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="btn btn-danger"
+                                className="btn btn-danger text-responsive-sm w-full sm:w-auto"
                             >
                                 🔒 Pre-Close Loan (₹{calculations.finalSettlement.toLocaleString()})
                             </button>

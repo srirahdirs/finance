@@ -93,23 +93,23 @@ const Dashboard = ({ onNavigate }) => {
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-responsive">
             {/* Page Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-3 sm:space-y-0">
                 <div>
                     {/* <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
                     <p className="text-gray-600 mt-1">Overview of your loan management system</p> */}
                 </div>
                 <button
                     onClick={fetchDashboardData}
-                    className="btn btn-outline"
+                    className="btn btn-outline text-responsive-sm w-full sm:w-auto"
                 >
                     🔄 Refresh Data
                 </button>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <StatCard
                     title="Total Clients"
                     value={stats.totalClients}
@@ -146,79 +146,134 @@ const Dashboard = ({ onNavigate }) => {
             {/* Recent Transactions */}
             <div className="card">
                 <div className="card-header">
-                    <h2 className="text-lg font-semibold text-gray-900">Recent Transactions</h2>
-                    <p className="text-sm text-gray-500 mt-1">Latest financial activities</p>
+                    <h2 className="text-responsive-lg font-semibold text-gray-900">Recent Transactions</h2>
+                    <p className="text-responsive-sm text-gray-500 mt-1">Latest financial activities</p>
                 </div>
                 <div className="card-body">
                     {recentTransactions.length > 0 ? (
-                        <div className="overflow-hidden">
-                            <table className="table">
-                                <thead className="table-header">
-                                    <tr>
-                                        <th className="table-header-cell">Date</th>
-                                        <th className="table-header-cell">Client</th>
-                                        <th className="table-header-cell">Type</th>
-                                        <th className="table-header-cell">Amount</th>
-                                        <th className="table-header-cell">Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="table-body">
-                                    {recentTransactions.map((transaction, index) => (
-                                        <tr key={index} className="table-row">
-                                            <td className="table-cell">
-                                                <div className="text-sm font-medium text-gray-900">
+                        <>
+                            {/* Desktop Table */}
+                            <div className="table-responsive hidden sm:block">
+                                <table className="table">
+                                    <thead className="table-header">
+                                        <tr>
+                                            <th className="table-header-cell">Date</th>
+                                            <th className="table-header-cell">Client</th>
+                                            <th className="table-header-cell">Type</th>
+                                            <th className="table-header-cell">Amount</th>
+                                            <th className="table-header-cell">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="table-body">
+                                        {recentTransactions.map((transaction, index) => (
+                                            <tr key={index} className="table-row">
+                                                <td className="table-cell">
+                                                    <div className="text-sm font-medium text-gray-900">
+                                                        {new Date(transaction.transactionDate).toLocaleDateString('en-IN', {
+                                                            year: 'numeric',
+                                                            month: '2-digit',
+                                                            day: '2-digit'
+                                                        })}
+                                                    </div>
+                                                    <div className="text-xs text-gray-500">
+                                                        {new Date(transaction.transactionDate).toLocaleTimeString('en-IN', {
+                                                            hour: '2-digit',
+                                                            minute: '2-digit',
+                                                            second: '2-digit',
+                                                            hour12: true
+                                                        })}
+                                                    </div>
+                                                </td>
+                                                <td className="table-cell">
+                                                    <div className="flex items-center">
+                                                        <div className="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+                                                            <span className="text-primary-600 text-sm font-medium">
+                                                                {transaction.client?.name?.charAt(0) || 'N'}
+                                                            </span>
+                                                        </div>
+                                                        <div>
+                                                            <div className="text-sm font-medium text-gray-900">
+                                                                {transaction.client?.name || 'N/A'}
+                                                            </div>
+                                                            <div className="text-xs text-gray-500">
+                                                                {transaction.client?.email || ''}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="table-cell">
+                                                    <span className={`badge ${transaction.type === 'interest' ? 'badge-success' : 'badge-info'}`}>
+                                                        {transaction.type}
+                                                    </span>
+                                                </td>
+                                                <td className="table-cell">
+                                                    <div className="text-sm font-semibold text-gray-900">
+                                                        ₹{transaction.amount.toLocaleString()}
+                                                    </div>
+                                                </td>
+                                                <td className="table-cell">
+                                                    <div className="text-sm text-gray-900">
+                                                        {transaction.description}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Mobile Cards */}
+                            <div className="block sm:hidden space-y-4">
+                                {recentTransactions.map((transaction, index) => (
+                                    <div key={index} className="table-mobile-card">
+                                        <div className="table-mobile-card-header">
+                                            <div className="flex items-center">
+                                                <div className="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+                                                    <span className="text-primary-600 text-sm font-medium">
+                                                        {transaction.client?.name?.charAt(0) || 'N'}
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <div className="text-sm font-medium text-gray-900">
+                                                        {transaction.client?.name || 'N/A'}
+                                                    </div>
+                                                    <div className="text-xs text-gray-500">
+                                                        {transaction.client?.email || ''}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span className={`badge ${transaction.type === 'interest' ? 'badge-success' : 'badge-info'}`}>
+                                                {transaction.type}
+                                            </span>
+                                        </div>
+                                        <div className="table-mobile-card-body">
+                                            <div className="table-mobile-card-row">
+                                                <span className="table-mobile-card-label">Date</span>
+                                                <span className="table-mobile-card-value">
                                                     {new Date(transaction.transactionDate).toLocaleDateString('en-IN', {
                                                         year: 'numeric',
                                                         month: '2-digit',
                                                         day: '2-digit'
                                                     })}
-                                                </div>
-                                                <div className="text-xs text-gray-500">
-                                                    {new Date(transaction.transactionDate).toLocaleTimeString('en-IN', {
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                        second: '2-digit',
-                                                        hour12: true
-                                                    })}
-                                                </div>
-                                            </td>
-                                            <td className="table-cell">
-                                                <div className="flex items-center">
-                                                    <div className="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center mr-3">
-                                                        <span className="text-primary-600 text-sm font-medium">
-                                                            {transaction.client?.name?.charAt(0) || 'N'}
-                                                        </span>
-                                                    </div>
-                                                    <div>
-                                                        <div className="text-sm font-medium text-gray-900">
-                                                            {transaction.client?.name || 'N/A'}
-                                                        </div>
-                                                        <div className="text-xs text-gray-500">
-                                                            {transaction.client?.email || ''}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="table-cell">
-                                                <span className={`badge ${transaction.type === 'interest' ? 'badge-success' : 'badge-info'}`}>
-                                                    {transaction.type}
                                                 </span>
-                                            </td>
-                                            <td className="table-cell">
-                                                <div className="text-sm font-semibold text-gray-900">
+                                            </div>
+                                            <div className="table-mobile-card-row">
+                                                <span className="table-mobile-card-label">Amount</span>
+                                                <span className="table-mobile-card-value font-semibold">
                                                     ₹{transaction.amount.toLocaleString()}
-                                                </div>
-                                            </td>
-                                            <td className="table-cell">
-                                                <div className="text-sm text-gray-900">
+                                                </span>
+                                            </div>
+                                            <div className="table-mobile-card-row">
+                                                <span className="table-mobile-card-label">Description</span>
+                                                <span className="table-mobile-card-value">
                                                     {transaction.description}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
                     ) : (
                         <div className="text-center py-12">
                             <div className="text-gray-400 text-6xl mb-4">📋</div>
@@ -230,7 +285,7 @@ const Dashboard = ({ onNavigate }) => {
             </div>
 
             {/* Quick Actions */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <div className="card">
                     <div className="card-body text-center">
                         <div className="text-4xl mb-4">👥</div>
